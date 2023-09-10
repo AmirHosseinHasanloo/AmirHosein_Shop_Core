@@ -1,0 +1,26 @@
+﻿@model DataLayer.DetailsViewModel
+@{
+    ViewData["Title"] = Model.Product.Name;
+}
+
+<div>
+    <h1 class="display-5">@Model.Product.Name</h1>
+    <hr />
+    <img src="@($"/Images/{Model.Product.Id}.jpg")" alt="@Model.Product.Name" class="rounded col-md-12"/>
+  <div class="col-md-12">
+        <p class="py-5 text-justify">@Model.Product.Description</p>
+        <p>قیمت : @Model.Product.Item.Price.ToString("#,0") تومان</p>
+
+        <dl>
+            @foreach (var item in Model.Categories)
+            {
+                <dt><a>@item.CategoryName</a></dt>
+                <dd>@item.Description</dd>
+            }
+        </dl>
+        <a class="btn btn-outline-primary" href="/AddToCart/@Model.Product.Id">افزودن به سبد خرید</a>
+  </div>
+</div>
+
+
+

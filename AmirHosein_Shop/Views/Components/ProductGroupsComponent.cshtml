@@ -1,0 +1,11 @@
+﻿@model IEnumerable<DataLayer.Category>
+
+<ul class="list-group">
+    @foreach (var item in Model)
+    {
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            @item.CategoryName
+            <span class="badge badge-primary badge-pill">11</span>
+        </li>
+    }
+</ul>

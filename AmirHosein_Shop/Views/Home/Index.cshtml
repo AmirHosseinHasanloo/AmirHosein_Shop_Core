@@ -1,0 +1,23 @@
+﻿@model IEnumerable<DataLayer.Product>
+@{
+    ViewData["Title"] = "صفحه اصلی فروشگاه";
+}
+
+<div class="text-center">
+    <h3 class="display-6">به فروشگاه ما خوش آمدید</h3>
+    <br />
+   <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-12 col-md-6 col-xl-4 col-lg-4 col-sm-6">
+                <div class="card">
+                    <img src="/Images/@(item.Id).jpg" height="160" width="160" class="card-img-top img-thumbnail" />
+                    <div class="card-body">
+                        <p class="card-title text-nowrap">@item.Name</p>
+                        <a href="/Detail/@item.Id" class="btn btn-link">جزئیات محصول</a>
+                    </div>
+                </div>
+            </div>
+        }
+   </div>
+</div>

@@ -1,0 +1,33 @@
+﻿@model DataLayer.CartViewModel
+
+@{
+    ViewData["Title"] = "سبد خرید";
+}
+
+<table class="table table-bordered table-striped table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>کالا</th>
+            <th>تعداد</th>
+            <th>قیمت</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model.shopCartItems)
+        {
+            <tr>
+                <td>@item.Item.Product.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.GetTotalPrice()</td>
+                <td><a href="@Url.Action("DeleteCart",new {id = item.Item.Id})" class="text-danger">حذف</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<h5>جمع کل : @Model.OrderTotal</h5>
+
+
+
