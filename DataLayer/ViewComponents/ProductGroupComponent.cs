@@ -11,16 +11,17 @@ namespace DataLayer
 {
     public class ProductGroupComponent : ViewComponent
     {
-        private EshopContext _context;
+        private IProductGroupsRepository _groupsRepository;
 
-        public ProductGroupComponent(EshopContext context)
+        public ProductGroupComponent(IProductGroupsRepository groupsRepository)
         {
-            _context = context;
+            _groupsRepository = groupsRepository;
         }
-
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            return View("/Views/Components/ProductGroupsComponent.cshtml", _context.Categories);
+           
+
+            return View("/Views/Components/ProductGroupsComponent.cshtml", _groupsRepository.GetGroupForShow());
 
         }
 

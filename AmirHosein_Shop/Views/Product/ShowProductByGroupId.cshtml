@@ -1,11 +1,10 @@
 ﻿@model IEnumerable<DataLayer.Product>
 @{
-    ViewData["Title"] = "صفحه اصلی فروشگاه";
+    ViewData["Title"] = ViewData["GroupName"];
 }
-
 <div class="text-center">
-    <h3 class="display-6">به فروشگاه ما خوش آمدید</h3>
-    <hr class="shadow-sm"/>
+    <h3 class="display-6">محصولات گروه @ViewData["GroupName"] </h3>
+    <hr class="shadow-sm" />
     <br />
     <div class="row">
         @foreach (var item in Model)
@@ -14,3 +13,6 @@
         }
     </div>
 </div>
+
+
+

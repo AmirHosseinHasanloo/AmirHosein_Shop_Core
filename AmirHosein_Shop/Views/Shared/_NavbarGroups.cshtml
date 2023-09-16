@@ -1,0 +1,11 @@
+﻿@inject DataLayer.IProductGroupsRepository IGroupRepository
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">گروه محصولات</a>
+    <div class="dropdown-menu" aria-labelledby="dropdown09">
+       @foreach (var item in IGroupRepository.GetAll())
+        {
+            <a class="dropdown-item" href="/Group/@item.Id/@item.CategoryName">@item.CategoryName</a>
+        }
+    </div>
+</li>

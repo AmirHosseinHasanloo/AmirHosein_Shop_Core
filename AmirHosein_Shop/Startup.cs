@@ -33,6 +33,14 @@ namespace AmirHosein_Shop
                 options.UseSqlServer("Data Source=.;Initial Catalog=AmirShop_DB;User Id=sa;Password=asadasad");
             });
 
+            #endregion
+
+
+            #region IoC
+
+            services.AddScoped<IProductGroupsRepository, ProductGroupsRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
             #endregion 
 
         }

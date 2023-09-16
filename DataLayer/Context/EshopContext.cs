@@ -20,6 +20,7 @@ namespace DataLayer
         public DbSet<CategoryToProduct> CategoryToProducts { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ShopItem> shopItems { get; set; }
+        public DbSet<Users> Users { get; set; }
 
 
 
