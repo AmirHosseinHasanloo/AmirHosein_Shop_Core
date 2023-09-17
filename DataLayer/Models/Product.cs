@@ -14,5 +14,6 @@ namespace DataLayer
 
         public ICollection<CategoryToProduct> CategoryToProducts { get; set; }
         public ShopItem Item { get; set; }
+        public List<OrderDetails> OrderDetail { get; set; }
     }
 }

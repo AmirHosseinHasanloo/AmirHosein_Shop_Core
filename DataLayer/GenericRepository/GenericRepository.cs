@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace DataLayer
 {
@@ -17,6 +20,30 @@ namespace DataLayer
             _dbSet = _context.Set<TEntity>();
         }
 
+        public virtual IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> where = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderby = null, string includes = "")
+        {
+            IQueryable<TEntity> query = _dbSet;
+
+            if (where != null)
+            {
+                query = query.Where(where);
+            }
+
+            if (orderby != null)
+            {
+                query = orderby(query);
+            }
+
+            if (includes != "")
+            {
+                foreach (var include in includes.Split(','))
+                {
+                    query = query.Include(include);
+                }
+            }
+
+            return query.ToList();
+        }
 
         public virtual TEntity GetById(object id)
         {

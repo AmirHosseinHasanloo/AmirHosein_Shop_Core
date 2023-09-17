@@ -18,7 +18,7 @@ namespace DataLayer
         {
             get
             {
-                if (_usersRepository != null)
+                if (_usersRepository == null)
                 {
                     _usersRepository = new GenericRepository<Users>(_context);
                 }
@@ -31,7 +31,7 @@ namespace DataLayer
         {
             get
             {
-                if (_CategoryRepository != null)
+                if (_CategoryRepository == null)
                 {
                     _CategoryRepository = new GenericRepository<Category>(_context);
                 }
@@ -44,7 +44,7 @@ namespace DataLayer
         {
             get
             {
-                if (_CategoryToProductRepository != null)
+                if (_CategoryToProductRepository == null)
                 {
                     _CategoryToProductRepository = new GenericRepository<CategoryToProduct>(_context);
                 }
@@ -57,7 +57,7 @@ namespace DataLayer
         {
             get
             {
-                if (_ProductRepository != null)
+                if (_ProductRepository == null)
                 {
                     _ProductRepository = new GenericRepository<Product>(_context);
                 }
@@ -72,12 +72,45 @@ namespace DataLayer
         {
             get
             {
-                if (_ShopItemRepository != null)
+                if (_ShopItemRepository == null)
                 {
                     _ShopItemRepository = new GenericRepository<ShopItem>(_context);
                 }
                 return _ShopItemRepository;
             }
+        }
+
+        private GenericRepository<Order> _OrderRepository;
+        public GenericRepository<Order> OrderRepository
+        {
+            get
+            {
+                if (_OrderRepository == null)
+                {
+                    _OrderRepository = new GenericRepository<Order>(_context);
+                }
+                return _OrderRepository;
+            }
+        }
+
+
+        private GenericRepository<OrderDetails> _OrderDetailsRepository;
+        public GenericRepository<OrderDetails> OrderDetailsRepository
+        {
+            get
+            {
+                if (_OrderDetailsRepository == null)
+                {
+                    _OrderDetailsRepository = new GenericRepository<OrderDetails>(_context);
+                }
+                return _OrderDetailsRepository;
+            }
+        }
+
+
+        public void Save()
+        {
+            _context.SaveChanges();
         }
     }
 }

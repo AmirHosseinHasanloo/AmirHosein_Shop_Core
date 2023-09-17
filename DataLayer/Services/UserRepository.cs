@@ -28,7 +28,7 @@ namespace DataLayer
 
         public Users GetUserForLogin(string email, string password)
         {
-            return _context.Users.Single(u => u.Email == email.ToLower().Trim() && u.Password == password);
+            return _context.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
         }
 
     }

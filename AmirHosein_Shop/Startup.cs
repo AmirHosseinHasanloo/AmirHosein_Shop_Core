@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace AmirHosein_Shop
 {
@@ -35,13 +36,27 @@ namespace AmirHosein_Shop
 
             #endregion
 
-
             #region IoC
 
             services.AddScoped<IProductGroupsRepository, ProductGroupsRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IOrdersRepository, OrdersRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
 
-            #endregion 
+            #endregion
+
+            #region Authentication
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(option =>
+                {
+                    option.LoginPath = "/Account/Login";
+                    option.LogoutPath = "/Account/Logout";
+                    option.ExpireTimeSpan = TimeSpan.FromDays(30);
+                });
+
+            #endregion
 
         }
 
@@ -63,6 +78,7 @@ namespace AmirHosein_Shop
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

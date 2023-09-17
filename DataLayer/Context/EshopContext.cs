@@ -21,7 +21,8 @@ namespace DataLayer
         public DbSet<Product> Products { get; set; }
         public DbSet<ShopItem> shopItems { get; set; }
         public DbSet<Users> Users { get; set; }
-
+        public DbSet<OrderDetails> OrderDetails { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
