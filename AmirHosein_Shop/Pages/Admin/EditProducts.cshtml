@@ -1,0 +1,46 @@
+﻿@page
+@model AmirHosein_Shop.Pages.Admin.EditProductsModel
+@{
+    ViewData["Title"] = "ویرایش محصول";
+}
+
+<div class="col-md-12">
+    <br/>
+    <p class="display-1 font-weight-bolder">
+        ویرایش محصول
+    </p>
+    <hr/>
+    <form method="post" class="col-md-8" enctype="multipart/form-data">
+        <input asp-for="Product.ProductId" type="hidden"/>
+        <label asp-for="Product.Name" class="col-form-label"></label>
+        <input asp-for="Product.Name" class="form-control"/>
+        <span asp-validation-for="Product.Name" class="text-info"></span>
+        <br/>
+        <label asp-for="Product.Description" class="col-form-label"></label>
+        <textarea asp-for="Product.Description" class="form-control"></textarea>
+        <span asp-validation-for="Product.Description" class="text-info"></span>
+        <br/>
+        <label asp-for="Product.Price" class="col-form-label"></label>
+        <input asp-for="Product.Price" class="form-control"/>
+        <span asp-validation-for="Product.Price" class="text-info"></span>
+        <br/>
+        <label asp-for="Product.QuantityInStock" class="col-form-label"></label>
+        <input asp-for="Product.QuantityInStock" class="form-control"/>
+        <span asp-validation-for="Product.QuantityInStock" class="text-info"></span>
+        <br/>
+
+        <div>
+            <label class="col-form-label">تصویر فعلی</label>
+            <div class="row">
+                <img class="col-md-4 img-thumbnail shadow-sm" src="/Images/@(Model.Product.ProductId).jpg"/>
+            </div>
+        </div>
+
+        <br/>
+        <label asp-for="Product.Picture" class="col-form-label"></label>
+        <input asp-for="Product.Picture" class="form-control"/>
+        <span asp-validation-for="Product.Picture" class="text-info"></span>
+        <br/>
+        <input type="submit" value="ویرایش" class="btn btn-warning"/>
+    </form>
+</div>

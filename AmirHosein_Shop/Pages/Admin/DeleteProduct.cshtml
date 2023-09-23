@@ -1,0 +1,29 @@
+﻿@page
+@model AmirHosein_Shop.Pages.Admin.DeleteProductModel
+@{
+    ViewData["Title"] = "حذف محصول";
+}
+<p class="display-1 font-weight-bolder">
+    حذف محصول
+</p>
+<div class="col-md-12">
+    <dl class="dl-horizontal">
+        <dd>نام محصول</dd>
+        <dt>@Model.Product.Name</dt>
+        <br />
+        <dd>تصویر</dd>
+        <dt>
+            <img src="/Images/@(Model.Product.Id).jpg" class="img-thumbnail shadow-sm" />
+        </dt>
+        <br />
+        <dd>توضیحات</dd>
+        <dt>@Model.Product.Description</dt>
+        <br />
+        <form method="post">
+            <input type="hidden" asp-for="Product.Id" />
+        <dd></dd>
+        <dt><input type="submit" class="btn btn-danger" value="حذف"></dt>
+        </form>
+    </dl>
+
+</div>

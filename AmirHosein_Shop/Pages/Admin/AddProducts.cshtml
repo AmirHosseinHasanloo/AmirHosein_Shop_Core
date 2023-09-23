@@ -1,7 +1,35 @@
 ﻿@page
 @model AmirHosein_Shop.Pages.Admin.ProductsModel
 @{
-    ViewData["Title"] = "Add Products";
+    ViewData["Title"] = "افزودن محصول";
 }
-
-<h1> Add Products </h1>
+<div class="col-md-12">
+    <br/>
+    <p class="display-1 font-weight-bolder">
+        افزودن محصول
+    </p>
+    <hr/>
+    <form method="post" class="col-md-8" enctype="multipart/form-data">
+        <label asp-for="AddProduct.Name" class="col-form-label"></label>
+        <input asp-for="AddProduct.Name" class="form-control"/>
+        <span asp-validation-for="AddProduct.Name" class="text-info"></span>
+        <br/>
+        <label asp-for="AddProduct.Description" class="col-form-label"></label>
+        <textarea asp-for="AddProduct.Description" class="form-control"></textarea>
+        <span asp-validation-for="AddProduct.Description" class="text-info"></span>
+        <br/>
+        <label asp-for="AddProduct.Price" class="col-form-label"></label>
+        <input asp-for="AddProduct.Price" class="form-control"/>
+        <span asp-validation-for="AddProduct.Price" class="text-info"></span>
+        <br/>
+        <label asp-for="AddProduct.QuantityInStock" class="col-form-label"></label>
+        <input asp-for="AddProduct.QuantityInStock" class="form-control"/>
+        <span asp-validation-for="AddProduct.QuantityInStock" class="text-info"></span>
+        <br/>
+        <label asp-for="AddProduct.Picture" class="col-form-label"></label>
+        <input asp-for="AddProduct.Picture" class="form-control" />
+        <span asp-validation-for="AddProduct.Picture" class="text-info"></span>
+        <br />
+        <input type="submit" value="افزودن" class="btn btn-outline-secondary"/>
+    </form>
+</div>

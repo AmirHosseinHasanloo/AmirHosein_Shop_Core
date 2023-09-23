@@ -1,6 +1,39 @@
 ﻿@page
 @model AmirHosein_Shop.Pages.Admin.IndexModel
 @{
-    ViewData["Title"] = "index";
+    ViewData["Title"] = "لیست محصولات";
 }
-<h1>Admin</h1>
+<br/>
+<p>
+    <a asp-page="AddProducts" class="btn btn-secondary">افزودن کالا</a>
+</p>
+<table class="table table-bordered table-hover table-responsive table-striped col-md-12 shadow-lg">
+    <thead>
+        <tr>
+            <th class="col-md-4">محصول</th>
+            <th class="col-md-4">تصویر</th>
+            <th class="col-md-2">قیمت</th>
+            <th class="col-md-2"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    <img src="/Images/@(item.Id).jpg" alt="@item.Name" class="img-responsive img-thumbnail" />
+                </td>
+                <td>
+                    @item.Item.Price.ToString("#,0") تومان
+                </td>
+                <td class="text-center">
+                    <a asp-page="EditProducts" asp-route-id="@item.Id" class="btn btn-warning">ویرایش</a>
+                    <a asp-page="DeleteProduct" asp-route-id="@item.Id" class="btn btn-danger">حذف</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

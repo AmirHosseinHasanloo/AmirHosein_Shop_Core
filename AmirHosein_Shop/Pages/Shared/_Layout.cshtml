@@ -7,11 +7,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Start Bootstrap - SB Admin Version 2.0 Demo</title>
+    <title>@ViewData["Title"]</title>
 
     <!-- Core CSS - Include with every page -->
     <link href="/Admin/css/bootstrap-rtl.css" rel="stylesheet">
     <link href="/Admin/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="https://cdn.rawgit.com/rastikerdar/sahel-font/v1.0.0-alpha23/dist/font-face.css" rel="stylesheet" />
 
     <!-- Page-Level Plugin CSS - Blank -->
     <!-- SB Admin CSS - Include with every page -->
@@ -19,7 +20,7 @@
 
 </head>
 
-<body>
+<body style="font-family: Sahel,sans-serif;">
 
     <div id="wrapper">
 
@@ -31,7 +32,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+                <a class="navbar-brand" href="index.html">پنل ادمین فروشگاه</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -263,16 +264,16 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="/Admin/index"><i class="fa fa-list fa-fw"></i> لیست محصولات</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                            <a ><i class="fa fa-usersfa-fw"></i> مدیریت  کاربران<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="flot.html">Flot Charts</a>
+                                    <a href="/Admin/ManageUsers">لیست کاربران</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">Morris.js Charts</a>
+                                    <a href="/Admin/ManageUsers/Create">افزودن کاربر جدید</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -375,7 +376,7 @@
     <!-- Page-Level Plugin Scripts - Blank -->
     <!-- SB Admin Scripts - Include with every page -->
     <script src="/Admin/js/sb-admin.js"></script>
-
+    @RenderSection("Scripts",false)
     <!-- Page-Level Demo Scripts - Blank - Use for reference -->
 
 </body>

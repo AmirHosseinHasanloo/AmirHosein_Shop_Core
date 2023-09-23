@@ -27,8 +27,7 @@
                         </li>
                         <partial name="_NavbarGroups" />
                         @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
+                        {<li class="nav-item">
                                 <p class="nav-link text-dark">@User.Identity.Name خوش آمدید !</p>
                             </li>
                             <li class="nav-item">
