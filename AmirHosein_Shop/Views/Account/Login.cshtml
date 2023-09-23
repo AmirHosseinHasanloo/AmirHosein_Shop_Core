@@ -4,6 +4,13 @@
     ViewData["Title"] = "ورود";
 }
 
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="alert alert-danger text-center">
+        شما دسترسی ندارید !
+    </div>
+}
+
 <h4>ورود</h4>
 <hr />
 <div class="row">

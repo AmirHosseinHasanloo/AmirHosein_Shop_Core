@@ -1,18 +1,22 @@
+﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using DataLayer;
 using DataLayer.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SQLitePCL;
 
 namespace AmirHosein_Shop.Pages.Admin
 {
     public class ProductsModel : PageModel
     {
         private UnitOfWork _unitOfWork;
-
+        private EshopContext _context;
         public ProductsModel(EshopContext context)
         {
+            _context = context;
             _unitOfWork = new UnitOfWork(context);
         }
 
@@ -20,13 +24,22 @@ namespace AmirHosein_Shop.Pages.Admin
         public Add_EditProductViewModel AddProduct { get; set; }
         public void OnGet()
         {
-
+            ViewData["Categories"] = _unitOfWork.CategoryRepository.GetAll();
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(List<int> selectedGroups)
         {
             if (!ModelState.IsValid)
+            {
                 return Page();
+            }
+
+            if (selectedGroups == null)
+            {
+                ViewData["Error"] = "لطفا گروه این محصول را مشخص کنید";
+                ViewData["Categories"] = _unitOfWork.CategoryRepository.GetAll();
+                return Page();
+            }
 
             var item = new ShopItem()
             {
@@ -46,6 +59,16 @@ namespace AmirHosein_Shop.Pages.Admin
             _unitOfWork.ProductRepository.Save();
             product.ItemId = product.Id;
             _unitOfWork.ProductRepository.Save();
+
+            foreach (int groups in selectedGroups)
+            {
+                _unitOfWork.CategoryToProductRepository.Insert(new CategoryToProduct()
+                {
+                    ProductId = product.Id,
+                    CategoryId = groups
+                });
+            }
+            _unitOfWork.CategoryToProductRepository.Save();
 
             if (AddProduct.Picture?.Length > 0)
             {

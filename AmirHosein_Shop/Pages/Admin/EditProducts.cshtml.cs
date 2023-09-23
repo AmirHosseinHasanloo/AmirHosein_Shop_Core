@@ -1,5 +1,7 @@
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using DataLayer;
 using DataLayer.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -29,13 +31,24 @@ namespace AmirHosein_Shop.Pages.Admin
                     Price = P.Item.Price,
                     QuantityInStock = P.Item.QuantityInStock,
                 }).FirstOrDefault();
+            ViewData["Categories"] = _unitOfWork.CategoryRepository.GetAll();
+            ViewData["SelectedCategories"] = _unitOfWork.CategoryToProductRepository.GetAll();
         }
 
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(List<int> selectedGroups)
         {
             if (!ModelState.IsValid)
+            {
                 return Page();
+            }
+            if (selectedGroups == null)
+            {
+                ViewData["Error"] = true;
+                ViewData["Categories"] = _unitOfWork.CategoryRepository.GetAll();
+                ViewData["SelectedCategories"] = _unitOfWork.CategoryToProductRepository.GetAll();
+                return Page();
+            }
 
             var editProduct = _unitOfWork.ProductRepository.GetAll().SingleOrDefault(p => p.Id == Product.ProductId);
             var item = _unitOfWork.ShopItemRepository.GetAll().SingleOrDefault(p => p.Id == Product.ProductId);
@@ -47,6 +60,30 @@ namespace AmirHosein_Shop.Pages.Admin
 
             //save to db
             _unitOfWork.ProductRepository.Save();
+
+            if (selectedGroups != null)
+            {
+                if (_unitOfWork.CategoryToProductRepository.GetAll().Any(CP => CP.ProductId == editProduct.Id))
+                {
+                    var product = _unitOfWork.CategoryToProductRepository.GetAll();
+                    foreach (var delete in product.Where(p => p.ProductId == editProduct.Id))
+                    {
+                        _unitOfWork.CategoryToProductRepository.Delete(delete);
+                    }
+                    _unitOfWork.CategoryToProductRepository.Save();
+
+                }
+                foreach (var groups in selectedGroups)
+                {
+                    _unitOfWork.CategoryToProductRepository.Insert(new CategoryToProduct()
+                    {
+                        ProductId = editProduct.Id,
+                        CategoryId = groups
+                    });
+                }
+                _unitOfWork.CategoryToProductRepository.Save();
+
+            }
 
             if (Product.Picture != null)
             {

@@ -17,6 +17,7 @@ namespace AmirHosein_Shop.Pages.Admin
         public IEnumerable<Product> Products { get; set; }
         public void OnGet()
         {
+            ViewData["Categories"] = _unitOfWork.CategoryToProductRepository.GetAll(includes:"Category");
             Products = _unitOfWork.ProductRepository.GetAll(includes: "Item");
         }
 

@@ -1,9 +1,19 @@
 ﻿@page
+@using DataLayer
 @model AmirHosein_Shop.Pages.Admin.ProductsModel
 @{
     ViewData["Title"] = "افزودن محصول";
+   var Categories = ViewData["Categories"] as List<Category>;
 }
 <div class="col-md-12">
+    
+    @if (ViewData["Error"] != null)
+    {
+        <div class="alert alert-danger text-center">
+            @ViewData["Error"]
+        </div>
+    }
+
     <br/>
     <p class="display-1 font-weight-bolder">
         افزودن محصول
@@ -27,9 +37,21 @@
         <span asp-validation-for="AddProduct.QuantityInStock" class="text-info"></span>
         <br/>
         <label asp-for="AddProduct.Picture" class="col-form-label"></label>
-        <input asp-for="AddProduct.Picture" class="form-control" />
+        <input asp-for="AddProduct.Picture" class="form-control"/>
         <span asp-validation-for="AddProduct.Picture" class="text-info"></span>
-        <br />
+        <br/>
+        <label class="col-form-label">گروه محصولات</label>
+        <div class="row">
+            <ul class="list-group text-center shadow-sm col-md-6">
+                @foreach (var i in Categories)
+                {
+                    <li class="list-group-item">
+                        @i.CategoryName : <input type="checkbox" name="selectedGroups" value="@i.Id" class="custom-checkbox checkbox-inline">
+                    </li>
+                }
+            </ul>
+        </div>
+
         <input type="submit" value="افزودن" class="btn btn-outline-secondary"/>
     </form>
 </div>

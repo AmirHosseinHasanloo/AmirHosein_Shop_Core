@@ -1,7 +1,9 @@
 ﻿@page
+@using DataLayer
 @model AmirHosein_Shop.Pages.Admin.IndexModel
 @{
     ViewData["Title"] = "لیست محصولات";
+    var Categories = ViewData["Categories"] as List<CategoryToProduct>;
 }
 <br/>
 <p>
@@ -12,8 +14,9 @@
         <tr>
             <th class="col-md-4">محصول</th>
             <th class="col-md-4">تصویر</th>
-            <th class="col-md-2">قیمت</th>
-            <th class="col-md-2"></th>
+            <th class="col-md-1">قیمت</th>
+            <th class="2">گروه های این محصول</th>
+            <th class="col-md-1"></th>
         </tr>
     </thead>
     <tbody>
@@ -29,9 +32,17 @@
                 <td>
                     @item.Item.Price.ToString("#,0") تومان
                 </td>
+                <td>
+                    <ol>
+                        @foreach (var group in Categories.Where(G=>G.ProductId==item.Id))
+                        {
+                            <li>@group.Category.CategoryName</li>
+                        }
+                    </ol>
+                </td>
                 <td class="text-center">
-                    <a asp-page="EditProducts" asp-route-id="@item.Id" class="btn btn-warning">ویرایش</a>
-                    <a asp-page="DeleteProduct" asp-route-id="@item.Id" class="btn btn-danger">حذف</a>
+                    <a asp-page="EditProducts" asp-route-id="@item.Id" class="btn-xs btn-warning">ویرایش</a>
+                    <a asp-page="DeleteProduct" asp-route-id="@item.Id" class="btn-xs btn-danger">حذف</a>
                 </td>
             </tr>
         }

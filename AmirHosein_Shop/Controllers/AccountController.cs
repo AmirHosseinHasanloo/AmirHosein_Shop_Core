@@ -39,8 +39,6 @@ namespace AmirHosein_Shop.Controllers
             if (ModelState.IsValid)
             {
                 //string HashPassword = BitConverter.ToString(new MD5CryptoServiceProvider().ComputeHash(Encoding.UTF8.GetBytes(model.Password))).Replace("-", "");
-                if (_userRepository.IsExistUserByEmail(model.Email) == false)
-                {
                     _unitOfWork.usersRepository.Insert(new Users
                     {
                         Email = model.Email.ToLower(),
@@ -51,11 +49,6 @@ namespace AmirHosein_Shop.Controllers
 
                     _unitOfWork.usersRepository.Save();
                     return View("SuccessRegister", model);
-                }
-                else
-                {
-                    ModelState.AddModelError("Email", errorMessage: "کاربر گرامی شخصی با این ایمیل ثبت نام کرده است");
-                }
             }
 
             return View(model);
@@ -85,7 +78,8 @@ namespace AmirHosein_Shop.Controllers
                     var climas = new List<Claim>()
                     {
                         new Claim(ClaimTypes.NameIdentifier, User.UserId.ToString()),
-                        new Claim(ClaimTypes.Name, User.Email)
+                        new Claim(ClaimTypes.Name, User.Email),
+                        new Claim("IsAdmin",User.IsAdmin.ToString())
                     };
 
                     var identity = new ClaimsIdentity(climas, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -109,6 +103,16 @@ namespace AmirHosein_Shop.Controllers
         }
 
         #endregion
+
+
+        public IActionResult VerifyEmail(string email)
+        {
+            if (_userRepository.IsExistUserByEmail(email))
+            {
+                return Json($"ایمیل ورودی تکراری است");
+            }
+            return Json(true);
+        }
 
         public IActionResult Logout()
         {

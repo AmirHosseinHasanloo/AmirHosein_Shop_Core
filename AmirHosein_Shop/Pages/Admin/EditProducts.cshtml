@@ -1,46 +1,69 @@
 ﻿@page
+@using DataLayer
+@using Microsoft.Azure.Documents.SystemFunctions
 @model AmirHosein_Shop.Pages.Admin.EditProductsModel
 @{
     ViewData["Title"] = "ویرایش محصول";
+    var Categories = ViewData["Categories"] as List<Category>;
+    var SelectedCategories = ViewData["SelectedCategories"] as List<CategoryToProduct>;
 }
 
 <div class="col-md-12">
-    <br/>
+    <br />
+    @if (ViewData["Error"] != null)
+    {
+        <div class="alert alert-danger text-center">
+            گروه های کالا را مشخص کنید.
+        </div>
+    }
+    <br />
     <p class="display-1 font-weight-bolder">
         ویرایش محصول
     </p>
-    <hr/>
+    <hr />
     <form method="post" class="col-md-8" enctype="multipart/form-data">
-        <input asp-for="Product.ProductId" type="hidden"/>
+        <input asp-for="Product.ProductId" type="hidden" />
         <label asp-for="Product.Name" class="col-form-label"></label>
-        <input asp-for="Product.Name" class="form-control"/>
+        <input asp-for="Product.Name" class="form-control" />
         <span asp-validation-for="Product.Name" class="text-info"></span>
-        <br/>
+        <br />
         <label asp-for="Product.Description" class="col-form-label"></label>
         <textarea asp-for="Product.Description" class="form-control"></textarea>
         <span asp-validation-for="Product.Description" class="text-info"></span>
-        <br/>
+        <br />
         <label asp-for="Product.Price" class="col-form-label"></label>
-        <input asp-for="Product.Price" class="form-control"/>
+        <input asp-for="Product.Price" class="form-control" />
         <span asp-validation-for="Product.Price" class="text-info"></span>
-        <br/>
+        <br />
         <label asp-for="Product.QuantityInStock" class="col-form-label"></label>
-        <input asp-for="Product.QuantityInStock" class="form-control"/>
+        <input asp-for="Product.QuantityInStock" class="form-control" />
         <span asp-validation-for="Product.QuantityInStock" class="text-info"></span>
-        <br/>
+        <br />
 
         <div>
             <label class="col-form-label">تصویر فعلی</label>
             <div class="row">
-                <img class="col-md-4 img-thumbnail shadow-sm" src="/Images/@(Model.Product.ProductId).jpg"/>
+                <img class="col-md-4 img-thumbnail shadow-sm" src="/Images/@(Model.Product.ProductId).jpg" />
             </div>
         </div>
 
-        <br/>
+        <br />
         <label asp-for="Product.Picture" class="col-form-label"></label>
-        <input asp-for="Product.Picture" class="form-control"/>
+        <input asp-for="Product.Picture" class="form-control" />
         <span asp-validation-for="Product.Picture" class="text-info"></span>
-        <br/>
-        <input type="submit" value="ویرایش" class="btn btn-warning"/>
+        <br />
+        <label class="col-form-label">گروه محصولات</label>
+        <div class="row">
+            <ul class="list-group text-center shadow-sm col-md-6">
+                @foreach (var i in Categories)
+                {
+                    <li class="list-group-item">
+                        @i.CategoryName : <input type="checkbox" name="selectedGroups" value="@i.Id" class="custom-checkbox checkbox-inline" @(SelectedCategories.Any(G => G.CategoryId == i.Id && G.ProductId == Model.Product.ProductId) ? "checked" : "")>
+                    </li>
+                }
+            </ul>
+        </div>
+        <br />
+        <input type="submit" value="ویرایش" class="btn btn-warning" />
     </form>
 </div>

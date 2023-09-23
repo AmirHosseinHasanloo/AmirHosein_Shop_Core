@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -11,6 +12,7 @@ namespace DataLayer
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [MaxLength(350, ErrorMessage = "این فیلد نمیتواند بیش از 350 کاراکتر باشد")]
         [EmailAddress(ErrorMessage = "لطفا یک ایمیل معتبر وارد کنید")]
+        [Remote("VerifyEmail", "Account")]
         public string Email { get; set; }
 
         [Display(Name = "رمز عبور")]
